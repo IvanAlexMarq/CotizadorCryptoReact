@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-
+//importar nuestro propio hook
+import useMoneda from '../hooks/useMoneda';
 const Boton = styled.input`
     margin-top: 20px;
     font-weight: bold;
@@ -18,8 +19,12 @@ const Boton = styled.input`
     }
 `;
 const Formulario = () => {
+
+    //utilizar useMoneda
+    const [moneda, SelectMoneda, actualizarState] = useMoneda();
     return (
         <form>
+            <SelectMoneda />
             <Boton
                 type="submit"
                 value="Calcular"
