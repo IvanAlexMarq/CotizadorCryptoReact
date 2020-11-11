@@ -21,7 +21,7 @@ const Boton = styled.input`
         cursor:pointer;
     }
 `;
-const Formulario = () => {
+const Formulario = ({ setMoneda, setCriptomoneda }) => {
 
     //state del listao de criptomonedas
     const [listacripto, setListacripto] = useState([]);
@@ -56,6 +56,9 @@ const Formulario = () => {
             return;
         }
         setError(false)
+        //pasar los datos al componente principal
+        setMoneda(moneda);
+        setCriptomoneda(criptomoneda);
     };
     return (
         <form onSubmit={cotizarMoneda}>
