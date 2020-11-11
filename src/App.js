@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import axios from 'axios';
 import imagen from './cryptomonedas.png';
 import Formulario from './components/Formulario';
+import Cotizacion from './components/Cotizacion';
 
 const Contenedor = styled.div`
   max-width: 900px;
@@ -36,6 +37,7 @@ const Heading = styled.h1`
 function App() {
   const [moneda, setMoneda] = useState('');
   const [criptomoneda, setCriptomoneda] = useState('');
+  const [resultado, setResultado] = useState({});
 
   useEffect(() => {
 
@@ -47,7 +49,7 @@ function App() {
 
       const resultado = await axios.get(url);
       //forma de acceder a los datos del objeto dinamico
-      console.log(resultado.data.DISPLAY[criptomoneda][moneda]);
+      setResultado(resultado.data.DISPLAY[criptomoneda][moneda]);
     };
     cotizarCriptomoneda();
 
@@ -68,6 +70,9 @@ function App() {
           setCriptomoneda={setCriptomoneda}
         />
       </div>
+      <Cotizacion
+        resultado={resultado}
+      />
     </Contenedor>
   );
 }
