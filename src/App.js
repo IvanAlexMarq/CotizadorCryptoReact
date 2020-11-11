@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import axios from 'axios';
 import imagen from './cryptomonedas.png';
 import Formulario from './components/Formulario';
 
@@ -37,10 +38,21 @@ function App() {
   const [criptomoneda, setCriptomoneda] = useState('');
 
   useEffect(() => {
-    //evitamos la ejecucion la primera vez
-    if (moneda === '') return;
-    console.log('cotizando...');
+
+    const cotizarCriptomoneda = async () => {
+      //evitamos la ejecucion la primera vez
+      if (moneda === '') return;
+      // consultar la api para obtener la cotizacion
+      const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${criptomoneda}&tsyms=${moneda}`;
+
+      const resultado = await axios.get(url);
+      //forma de acceder a los datos del objeto dinamico
+      console.log(resultado.data.DISPLAY[criptomoneda][moneda]);
+    };
+    cotizarCriptomoneda();
+
   }, [moneda, criptomoneda]);
+
   return (
     <Contenedor>
       <div>
